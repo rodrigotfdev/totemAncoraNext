@@ -66,12 +66,12 @@ const ProductList: React.FC = () => {
       <div className="max-w-7xl mx-auto">
         <h2 className="text-4xl font-extrabold text-gray-900 text-center mb-12">
           {searchTerm
-            ? `Search Results for "${searchTerm}"`
-            : "Featured Computer Components"}
+            ? `Procurando resultados para "${searchTerm}"`
+            : "As melhores autopeças você encontra aqui!"}
         </h2>
         {currentItems.length === 0 ? (
           <p className="text-center text-xl text-gray-600">
-            No products found.
+            Nenhum produto encontrado
           </p>
         ) : (
           <>

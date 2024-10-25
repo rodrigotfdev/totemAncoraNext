@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { RootState } from '../store/store';
-import { clearCart } from '../store/cartSlice';
-import { useNavigate } from 'react-router-dom';
+import React, { useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { RootState } from "../store/store";
+import { clearCart } from "../store/cartSlice";
+import { useNavigate } from "react-router-dom";
 
 const Checkout: React.FC = () => {
   const cartItems = useSelector((state: RootState) => state.cart.items);
@@ -10,64 +10,79 @@ const Checkout: React.FC = () => {
   const navigate = useNavigate();
 
   const [shippingInfo, setShippingInfo] = useState({
-    fullName: '',
-    address: '',
-    city: '',
-    postalCode: '',
-    country: '',
+    fullName: "",
+    address: "",
+    city: "",
+    postalCode: "",
+    country: "",
   });
 
-  const totalPrice = cartItems.reduce((total, item) => total + item.price * item.quantity, 0);
+  const totalPrice = cartItems.reduce(
+    (total, item) => total + item.price * item.quantity,
+    0
+  );
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    setShippingInfo(prev => ({ ...prev, [name]: value }));
+    setShippingInfo((prev) => ({ ...prev, [name]: value }));
   };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     // Generate a random order number (in a real app, this would come from the backend)
     const orderNumber = Math.random().toString(36).substr(2, 9).toUpperCase();
-    
+
     // Here you would typically send the order to your backend
-    console.log('Order submitted:', { items: cartItems, shippingInfo, totalPrice });
-    
+    console.log("Order submitted:", {
+      items: cartItems,
+      shippingInfo,
+      totalPrice,
+    });
+
     // Clear the cart
     dispatch(clearCart());
-    
+
     // Navigate to the order confirmation page with order details
-    navigate('/order-confirmation', {
+    navigate("/order-confirmation", {
       state: {
         orderNumber,
         items: cartItems,
         shippingInfo,
         totalPrice,
-      }
+      },
     });
   };
 
   if (cartItems.length === 0) {
     return (
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <h2 className="text-3xl font-extrabold text-gray-900">Checkout</h2>
-        <p className="mt-2 text-lg text-gray-600">Your cart is empty. Add some items before checking out.</p>
+        <h2 className="text-3xl font-extrabold text-gray-900">Pagamento</h2>
+        <p className="mt-2 text-lg text-gray-600">
+          Seu carrinho está vazio! Adicione alguns itens antes de prosseguir
+          para o pagamento.
+        </p>
       </div>
     );
   }
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-      <h2 className="text-3xl font-extrabold text-gray-900">Checkout</h2>
-      
+      <h2 className="text-3xl font-extrabold text-gray-900">Pagamento</h2>
+
       <div className="mt-8 grid grid-cols-1 gap-y-6 lg:grid-cols-5 lg:gap-x-12">
         <div className="lg:col-span-3">
           <form onSubmit={handleSubmit}>
             <div className="border-b border-gray-900/10 pb-12">
-              <h2 className="text-base font-semibold leading-7 text-gray-900">Shipping Information</h2>
+              <h2 className="text-base font-semibold leading-7 text-gray-900">
+                Informações de Entrega
+              </h2>
               <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
                 <div className="sm:col-span-3">
-                  <label htmlFor="fullName" className="block text-sm font-medium leading-6 text-gray-900">
-                    Full name
+                  <label
+                    htmlFor="fullName"
+                    className="block text-sm font-medium leading-6 text-gray-900"
+                  >
+                    Nome Completo
                   </label>
                   <div className="mt-2">
                     <input
@@ -84,8 +99,11 @@ const Checkout: React.FC = () => {
                 </div>
 
                 <div className="col-span-full">
-                  <label htmlFor="address" className="block text-sm font-medium leading-6 text-gray-900">
-                    Street address
+                  <label
+                    htmlFor="address"
+                    className="block text-sm font-medium leading-6 text-gray-900"
+                  >
+                    Rua
                   </label>
                   <div className="mt-2">
                     <input
@@ -102,7 +120,10 @@ const Checkout: React.FC = () => {
                 </div>
 
                 <div className="sm:col-span-2 sm:col-start-1">
-                  <label htmlFor="city" className="block text-sm font-medium leading-6 text-gray-900">
+                  <label
+                    htmlFor="city"
+                    className="block text-sm font-medium leading-6 text-gray-900"
+                  >
                     City
                   </label>
                   <div className="mt-2">
@@ -120,8 +141,11 @@ const Checkout: React.FC = () => {
                 </div>
 
                 <div className="sm:col-span-2">
-                  <label htmlFor="postalCode" className="block text-sm font-medium leading-6 text-gray-900">
-                    Postal code
+                  <label
+                    htmlFor="postalCode"
+                    className="block text-sm font-medium leading-6 text-gray-900"
+                  >
+                    CEP
                   </label>
                   <div className="mt-2">
                     <input
@@ -138,8 +162,11 @@ const Checkout: React.FC = () => {
                 </div>
 
                 <div className="sm:col-span-2">
-                  <label htmlFor="country" className="block text-sm font-medium leading-6 text-gray-900">
-                    Country
+                  <label
+                    htmlFor="country"
+                    className="block text-sm font-medium leading-6 text-gray-900"
+                  >
+                    País
                   </label>
                   <div className="mt-2">
                     <input
@@ -162,7 +189,7 @@ const Checkout: React.FC = () => {
                 type="submit"
                 className="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
               >
-                Place Order
+                Confirmar Ordem
               </button>
             </div>
           </form>
@@ -170,7 +197,9 @@ const Checkout: React.FC = () => {
 
         <div className="lg:col-span-2">
           <div className="border-b border-gray-900/10 pb-12">
-            <h2 className="text-base font-semibold leading-7 text-gray-900">Order Summary</h2>
+            <h2 className="text-base font-semibold leading-7 text-gray-900">
+              Confirmação de Itens
+            </h2>
             <ul role="list" className="divide-y divide-gray-200">
               {cartItems.map((item) => (
                 <li key={item.id} className="flex py-6">
@@ -185,12 +214,14 @@ const Checkout: React.FC = () => {
                     <div>
                       <div className="flex justify-between text-base font-medium text-gray-900">
                         <h3>{item.name}</h3>
-                        <p className="ml-4">R$ {(item.price * item.quantity).toFixed(2)}</p>
+                        <p className="ml-4">
+                          R$ {(item.price * item.quantity).toFixed(2)}
+                        </p>
                       </div>
-                      <p className="mt-1 text-sm text-gray-500">{item.specs.memorySize} {item.specs.memoryType}</p>
+                      {/* <p className="mt-1 text-sm text-gray-500">{item.specs.memorySize} {item.specs.memoryType}</p> */}
                     </div>
                     <div className="flex-1 flex items-end justify-between text-sm">
-                      <p className="text-gray-500">Qty {item.quantity}</p>
+                      <p className="text-gray-500">Qtd {item.quantity}</p>
                     </div>
                   </div>
                 </li>
@@ -201,7 +232,9 @@ const Checkout: React.FC = () => {
                 <p>Subtotal</p>
                 <p>R$ {totalPrice.toFixed(2)}</p>
               </div>
-              <p className="mt-0.5 text-sm text-gray-500">Shipping and taxes calculated at checkout.</p>
+              <p className="mt-0.5 text-sm text-gray-500">
+                Frete e taxa calculados no pagamento
+              </p>
             </div>
           </div>
         </div>

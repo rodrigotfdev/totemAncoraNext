@@ -48,7 +48,7 @@ const TopMenu: React.FC = () => {
       <nav className="flex justify-around items-center p-8 bg-black text-neutral-50">
         <Link to="/">
           <img
-            src="/productsImg/main-logo.png"
+            src="/productsImg/logoRedeAncora.png"
             alt="Company Logo"
             className="w-44"
           />
